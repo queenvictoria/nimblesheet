@@ -42,7 +42,7 @@
 	}
 </script>
 
-<Card.Root class={deleteMode ? `border-destructive bg-destructive/20` : ``}>
+<Card.Root class={deleteMode ? `border-destructive bg-destructive/20` : ``} style={locked && !note.content.trim() && !note.rolls.length ? 'display: none;' : ''}>
 	<Card.Header class="flex flex-row items-center justify-between gap-3">
 		<Card.Title class="flex flex-row items-center gap-3 text-lg">
 			{#if editing && !locked}

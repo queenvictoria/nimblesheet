@@ -634,14 +634,15 @@
 		</Card.Content>
 	</Card.Root>
 
-	<ListManager
-		bind:list={character.inventory}
-		title="Inventory"
-		emptyLabel="No items."
-		initialRow={{ name: 'Dagger', roll: 'd4!' }}
-		{onchange}
-		{locked}
-	>
+	{#if !locked || character.inventory.length > 0}
+		<ListManager
+			bind:list={character.inventory}
+			title="Inventory"
+			emptyLabel="No items."
+			initialRow={{ name: 'Dagger', roll: 'd4!' }}
+			{onchange}
+			{locked}
+		>
 		{#snippet helpText()}
 			<p>
 				Track the things you are carrying. Up to 500 coins count as one item. Toggling the weight
@@ -754,6 +755,7 @@
 			</div>
 		{/snippet}
 	</ListManager>
+{/if}
 
 	<SpellSelect
 		charClass={character.charClass}
@@ -768,14 +770,15 @@
 		{locked}
 	/>
 
-	<ListManager
-		bind:list={character.resources}
-		title="Resources"
-		emptyLabel="No resources."
-		initialRow={{ name: 'Resource', current: 0, max: 0 }}
-		{onchange}
-		{locked}
-	>
+	{#if !locked || character.resources.length > 0}
+		<ListManager
+			bind:list={character.resources}
+			title="Resources"
+			emptyLabel="No resources."
+			initialRow={{ name: 'Resource', current: 0, max: 0 }}
+			{onchange}
+			{locked}
+		>
 		{#snippet helpText()}
 			<p>
 				This is for anything you want to track a quantity of with a current and maximum value. It
@@ -791,20 +794,23 @@
 			<Input class="w-12 md:w-16" type="number" onfocus={autoSel} bind:value={res.max} disabled={locked} />
 		{/snippet}
 	</ListManager>
+{/if}
 
-	{#each character.notes as _, index}
-		<Note bind:note={character.notes[index]} ondelete={() => deleteNote(index)} {onroll} {locked} />
-	{/each}
-	{#if !locked}
-		<Card.Root>
-			<Card.Content class="flex justify-center">
-				<Button
-					variant="secondary"
-					class="border-primary/50 rounded-full pr-5 hover:border"
-					size="sm"
-					onclick={addNote}><Icons.Add class="size-5" /> Note Section</Button
-				>
-			</Card.Content>
-		</Card.Root>
+	{#if !locked || character.notes.length > 0}
+		{#each character.notes as _, index}
+			<Note bind:note={character.notes[index]} ondelete={() => deleteNote(index)} {onroll} {locked} />
+		{/each}
+		{#if !locked}
+			<Card.Root>
+				<Card.Content class="flex justify-center">
+					<Button
+						variant="secondary"
+						class="border-primary/50 rounded-full pr-5 hover:border"
+						size="sm"
+						onclick={addNote}><Icons.Add class="size-5" /> Note Section</Button
+					>
+				</Card.Content>
+			</Card.Root>
+		{/if}
 	{/if}
 </div>

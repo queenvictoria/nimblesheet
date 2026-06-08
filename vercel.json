@@ -1,0 +1,6 @@
+{
+  "devCommand": "vite --port 5778",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}

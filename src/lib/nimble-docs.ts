@@ -11,7 +11,7 @@ export function spellUrl(name: string): string {
 }
 
 export function openRule(path: string): void {
-	window.open(BASE + path, '_blank', 'noopener,noreferrer');
+	window.open(BASE + path, 'nimble-docs');
 }
 
 export type FieldDoc = { desc: string; url: string };
@@ -74,7 +74,8 @@ export const skillDescs: Record<string, string> = {
 	Insight:
 		'Your ability to understand people and situations beyond the obvious. Use Insight to sense motives, detect lies, read hidden emotions, make sense of clues, and when faced with uncertainty—you can think ahead or just "get" what is happening.',
 	Lore: 'Your understanding of the history of civilization, kingdoms, and religions. Use Lore to recall historical events and grasp the significance of cultural practices. It extends to knowledge of the abilities and behavior of Celestials, Dragons, Fey, Fiends, Giants, Humanoids, and Undead.',
-	Might: 'Your ability to apply strength effectively. Use Might for lifting heavy objects, breaking through obstacles, climbing, swimming, jumping, or performing feats of strength.',
+	Might:
+		'Your ability to apply strength effectively. Use Might for lifting heavy objects, breaking through obstacles, climbing, swimming, jumping, or performing feats of strength.',
 	Naturecraft:
 		'Your expertise in wilderness survival, navigation, tracking, and the handling of animals. Use Naturecraft to thrive in the wild, identify flora, fauna, and track creatures with precision. It encompasses knowledge of Beasts, Monstrosities, and Plants, providing insights into their behavior, habitats, and characteristics.',
 	Perception:

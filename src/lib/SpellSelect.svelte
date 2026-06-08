@@ -29,6 +29,7 @@
 		onroll?: (roll: string, label?: string) => void;
 		onchange: () => void;
 		charClass?: string;
+		locked?: boolean;
 	};
 	let {
 		allowed = ['Fire', 'Ice', 'Lightning', 'Necrotic', 'Radiant', 'Wind'],
@@ -40,6 +41,7 @@
 		charClass = '',
 		onroll = () => {},
 		onchange,
+		locked = false,
 	}: Props = $props();
 
 	let tierCap = $derived(
@@ -166,7 +168,7 @@
 		</div>
 	</Card.Header>
 	<Card.Content class="flex flex-col gap-2">
-		{#if additionalSchools.length && !extraSchool}
+		{#if additionalSchools.length && !extraSchool && !locked}
 			<Select.Root type="single" bind:value={extraSchool} onValueChange={onchange}>
 				<Select.Trigger>
 					{extraSchool || `Additional school`}
@@ -201,13 +203,15 @@
 					{#each school.spells as spell}
 						<div class="flex items-center gap-2">
 							{#if school.name === 'Utility'}
-								<Checkbox
-									checked={utilspells[spell.name] ?? false}
-									onCheckedChange={(x) => {
-										utilspells[spell.name] = !!x;
-										onchange();
-									}}
-								/>
+								<div class={locked ? 'pointer-events-none' : ''}>
+									<Checkbox
+										checked={utilspells[spell.name] ?? false}
+										onCheckedChange={(x) => {
+											utilspells[spell.name] = !!x;
+											onchange();
+										}}
+									/>
+								</div>
 								<SpellSchool school={spell.school} />
 							{/if}
 							<div class="flex w-full grow items-center gap-2 py-2">

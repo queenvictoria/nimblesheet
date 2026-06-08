@@ -33,6 +33,7 @@ import Multi from '@lucide/svelte/icons/square-stack';
 import Loader from '@lucide/svelte/icons/loader-circle';
 import Lock from '@lucide/svelte/icons/lock';
 import Unlock from '@lucide/svelte/icons/lock-open';
+import History from '@lucide/svelte/icons/history';
 
 // Spell Schools
 import Fire from '@lucide/svelte/icons/flame';
@@ -79,6 +80,7 @@ export const Icons = {
 	Loader,
 	Lock,
 	Unlock,
+	History,
 	Fire,
 	Ice,
 	Wind,

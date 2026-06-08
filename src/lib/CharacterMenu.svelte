@@ -8,7 +8,9 @@
 
 	import ConfirmButton from './ConfirmButton.svelte';
 	import { exportCharacters } from './export';
+	import { backupToDrive } from './google-drive';
 
+	import { toast } from 'svelte-sonner';
 	import { charManager, npcManager } from '$lib/character-manager.svelte';
 	import Sidebar from './Sidebar.svelte';
 	import { owlbear } from './owlbear.svelte';
@@ -49,6 +51,19 @@
 		if (!sheet) return;
 		console.log(`Send to player`, id, $state.snapshot(sheet));
 		owlbear.sendSheetToPlayer($state.snapshot(sheet), id);
+	}
+
+	let driveBacking = $state(false);
+
+	async function handleDriveBackup() {
+		driveBacking = true;
+		try {
+			await backupToDrive(selectedIds, type);
+		} catch (e) {
+			toast.error(e instanceof Error ? e.message : 'Google Drive backup failed');
+		} finally {
+			driveBacking = false;
+		}
 	}
 
 	$effect(() => (type === 'char' ? owlbear.onSentSheet(charManager.receive) : () => {}));
@@ -128,6 +143,20 @@
 						? `Selected`
 						: `All`}</Button
 				>
+				<Button
+					variant="outline"
+					size="icon"
+					onclick={handleDriveBackup}
+					disabled={driveBacking}
+					title="Backup to Google Drive"
+				>
+					{#if driveBacking}
+						<Icons.Loader class="size-4 animate-spin" />
+					{:else}
+						<Icons.DriveBackup class="size-4" />
+					{/if}
+					<span class="sr-only">Backup to Google Drive</span>
+				</Button>
 				{#if selectedIds.length === 1 && owlbear.role === 'GM' && type === 'char'}
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger class={buttonVariants({ variant: 'outline' })}

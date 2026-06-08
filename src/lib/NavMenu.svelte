@@ -1,6 +1,8 @@
 <script lang="ts">
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import { Icons } from '$lib/icons';
 	import type { NavItem } from './types';
+	import { openRule, ruleGroups } from './nimble-docs';
 
 	type Props = {
 		items: NavItem[];
@@ -27,5 +29,25 @@
 				</div>
 			</DropdownMenu.Item>
 		{/each}
+		<DropdownMenu.Separator />
+		<DropdownMenu.Sub>
+			<DropdownMenu.SubTrigger>
+				<Icons.BookOpenText class="size-4" /> Rules Reference
+			</DropdownMenu.SubTrigger>
+			<DropdownMenu.SubContent>
+				{#each ruleGroups as group}
+					<DropdownMenu.Sub>
+						<DropdownMenu.SubTrigger>{group.label}</DropdownMenu.SubTrigger>
+						<DropdownMenu.SubContent>
+							{#each group.links as link}
+								<DropdownMenu.Item onSelect={() => openRule(link.anchor)}>
+									{link.label}
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.SubContent>
+					</DropdownMenu.Sub>
+				{/each}
+			</DropdownMenu.SubContent>
+		</DropdownMenu.Sub>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

@@ -640,6 +640,7 @@
 		emptyLabel="No items."
 		initialRow={{ name: 'Dagger', roll: 'd4!' }}
 		{onchange}
+		{locked}
 	>
 		{#snippet helpText()}
 			<p>
@@ -676,13 +677,15 @@
 				<Button
 					size="icon"
 					variant="ghost"
-					onclick={() => (item.bulky = !item.bulky)}
+					onclick={() => !locked && (item.bulky = !item.bulky)}
+					disabled={locked}
 					class="absolute top-1/2 right-0 -translate-y-1/2"
 				>
 					<Icons.Bulky class=" size-5 {item.bulky ? `` : `text-muted-foreground`}" />
 				</Button>
 				<Input
 					bind:value={item.name}
+					disabled={locked}
 					class="w-full pr-10 {item.name.length === 0 ? 'pl-8' : ''} {item.bulky
 						? `font-black underline`
 						: ``}"
@@ -712,7 +715,7 @@
 					</Popover.Root>
 				{/if}
 			</div>
-			<Input class="w-20 md:w-24" bind:value={item.roll} />
+			<Input class="w-20 md:w-24" bind:value={item.roll} disabled={locked} />
 			{@render delBtn()}
 		{/snippet}
 		{#snippet deleteAlt(item)}
@@ -737,6 +740,7 @@
 					type="number"
 					onfocus={autoSel}
 					bind:value={character.gp}
+					disabled={locked}
 				/>
 				<label for="coin-sp"><Coin type="sp" size="size-5" /></label>
 				<Input
@@ -745,6 +749,7 @@
 					type="number"
 					onfocus={autoSel}
 					bind:value={character.sp}
+					disabled={locked}
 				/>
 			</div>
 		{/snippet}

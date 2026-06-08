@@ -89,7 +89,7 @@ async function uploadToDrive(token: string, filename: string, content: string): 
 	].join('\r\n');
 
 	const res = await fetch(
-		'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,webViewLink',
+		'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,parents',
 		{
 			method: 'POST',
 			headers: {
@@ -106,7 +106,10 @@ async function uploadToDrive(token: string, filename: string, content: string): 
 	}
 
 	const file = (await res.json()) as any;
-	return file.webViewLink ?? `https://drive.google.com/file/d/${file.id}/view`;
+	const folderId = file.parents?.[0];
+	return folderId
+		? `https://drive.google.com/drive/folders/${folderId}`
+		: 'https://drive.google.com/drive/my-drive';
 }
 
 export async function backupToDrive(selectedIds: string[], type: 'char' | 'npc'): Promise<void> {
@@ -122,7 +125,64 @@ export async function backupToDrive(selectedIds: string[], type: 'char' | 'npc')
 	toast.success(
 		`Backed up ${selected.length} ${proper}${selected.length === 1 ? '' : 's'} to Google Drive`,
 		{
-			action: { label: 'Open', onClick: () => window.open(link, '_blank') },
+			action: { label: 'Open in Drive', onClick: () => window.open(link, '_blank') },
 		}
 	);
+}
+
+export async function importFromDrive(): Promise<unknown[]> {
+	const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID as string | undefined;
+	if (!clientId) throw new Error('Set VITE_GOOGLE_CLIENT_ID in your .env to enable Drive import');
+
+	await import('@googleworkspace/drive-picker-element');
+
+	return new Promise((resolve, reject) => {
+		const picker = document.createElement('drive-picker') as HTMLElement & { visible: boolean };
+		picker.setAttribute('client-id', clientId);
+
+		const view = document.createElement('drive-picker-docs-view');
+		view.setAttribute('mime-types', 'application/json');
+		picker.appendChild(view);
+
+		let oauthToken = '';
+
+		const cleanup = () => picker.remove();
+
+		picker.addEventListener('picker-oauth-response', (e: Event) => {
+			oauthToken = (e as CustomEvent<{ access_token: string }>).detail.access_token;
+		});
+
+		picker.addEventListener('picker-picked', async (e: Event) => {
+			cleanup();
+			const fileId = (e as CustomEvent).detail?.docs?.[0]?.id;
+			if (!fileId || !oauthToken) {
+				reject(new Error('No file selected'));
+				return;
+			}
+			try {
+				const res = await fetch(
+					`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+					{ headers: { Authorization: `Bearer ${oauthToken}` } }
+				);
+				if (!res.ok) throw new Error(`Drive API error ${res.status}`);
+				const data: unknown = await res.json();
+				resolve(Array.isArray(data) ? data : [data]);
+			} catch (err) {
+				reject(err);
+			}
+		});
+
+		picker.addEventListener('picker-canceled', () => {
+			cleanup();
+			reject(new Error('Cancelled'));
+		});
+
+		picker.addEventListener('picker-error', () => {
+			cleanup();
+			reject(new Error('Drive picker error'));
+		});
+
+		document.body.appendChild(picker);
+		picker.visible = true;
+	});
 }

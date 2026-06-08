@@ -81,7 +81,7 @@
 		{/if}
 	</Card.Header>
 	<Card.Content>
-		<Textarea rows={5} bind:value={note.content} disabled={locked} />
+		<Textarea rows={5} bind:value={note.content} disabled={locked} class='field-sizing-content'/>
 		<div class="mt-3 flex flex-col gap-2">
 			{#each note.rolls as _, index}
 				<div class="flex flex-row items-center gap-2">

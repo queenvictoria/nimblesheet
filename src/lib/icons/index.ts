@@ -37,6 +37,7 @@ import Unlock from '@lucide/svelte/icons/lock-open';
 import History from '@lucide/svelte/icons/history';
 import DriveBackup from '@lucide/svelte/icons/cloud-upload';
 import DriveImport from '@lucide/svelte/icons/cloud-download';
+import BookOpenText from '@lucide/svelte/icons/book-open-text';
 
 // Spell Schools
 import Fire from '@lucide/svelte/icons/flame';
@@ -82,11 +83,15 @@ export const Icons = {
 	Disadvantage,
 	Multi,
 	Loader,
+<<<<<<< HEAD
 	Lock,
 	Unlock,
 	History,
 	DriveBackup,
 	DriveImport,
+=======
+	BookOpenText,
+>>>>>>> feature/docs
 	Fire,
 	Ice,
 	Wind,

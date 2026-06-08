@@ -4,12 +4,13 @@
 	"version": "1.7.2",
 	"type": "module",
 	"scripts": {
-		"dev": "vite --port 5778",
+		"dev": "vercel dev --listen 5778",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
 		"format": "prettier --write .",
-		"lint": "prettier --check ."
+		"lint": "prettier --check .",
+		"deploy": "vite build && vercel --prod"
 	},
 	"devDependencies": {
 		"@internationalized/date": "^3.8.2",

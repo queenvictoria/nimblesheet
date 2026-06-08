@@ -34,6 +34,8 @@ import Loader from '@lucide/svelte/icons/loader-circle';
 import Lock from '@lucide/svelte/icons/lock';
 import Unlock from '@lucide/svelte/icons/lock-open';
 import History from '@lucide/svelte/icons/history';
+import DriveBackup from '@lucide/svelte/icons/cloud-upload';
+import DriveImport from '@lucide/svelte/icons/cloud-download';
 
 // Spell Schools
 import Fire from '@lucide/svelte/icons/flame';
@@ -81,6 +83,8 @@ export const Icons = {
 	Lock,
 	Unlock,
 	History,
+	DriveBackup,
+	DriveImport,
 	Fire,
 	Ice,
 	Wind,

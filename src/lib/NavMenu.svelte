@@ -40,7 +40,7 @@
 						<DropdownMenu.SubTrigger>{group.label}</DropdownMenu.SubTrigger>
 						<DropdownMenu.SubContent>
 							{#each group.links as link}
-								<DropdownMenu.Item onSelect={() => openRule(link.anchor)}>
+								<DropdownMenu.Item onSelect={() => openRule(link.path)}>
 									{link.label}
 								</DropdownMenu.Item>
 							{/each}

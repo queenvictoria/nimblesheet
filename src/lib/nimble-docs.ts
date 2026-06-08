@@ -1,5 +1,4 @@
 const BASE = 'https://nimblenomicon.pages.dev/';
-const RULES = BASE + 'core-rules/';
 
 export function spellUrl(name: string): string {
 	const slug = name
@@ -11,8 +10,8 @@ export function spellUrl(name: string): string {
 	return `${BASE}spells/${slug}/`;
 }
 
-export function openRule(anchor: string): void {
-	window.open(RULES + anchor, '_blank', 'noopener,noreferrer');
+export function openRule(path: string): void {
+	window.open(BASE + path, '_blank', 'noopener,noreferrer');
 }
 
 export type FieldDoc = { desc: string; url: string };
@@ -20,48 +19,48 @@ export type FieldDoc = { desc: string; url: string };
 export const statDocs: Record<string, FieldDoc> = {
 	Armor: {
 		desc: 'Reduces damage taken. Defaults to your DEX modifier.',
-		url: RULES + '#armor',
+		url: BASE + 'core-rules/#armor',
 	},
 	HP: {
 		desc: 'Current hit points. Reaching 0 HP gives you a Wound.',
-		url: RULES + '#hit-points--dying',
+		url: BASE + 'core-rules/#hit-points--dying',
 	},
 	HD: {
 		desc: 'Hit dice spent on a short rest to recover HP. Roll your hit die + STR.',
-		url: RULES + '#hit-dice',
+		url: BASE + 'core-rules/#hit-dice',
 	},
 	Init: {
 		desc: 'Roll 1d20 + DEX at the start of combat. 1–9 = 1 action, 10–19 = 2, 20+ = 3.',
-		url: RULES + '#starting-combat',
+		url: BASE + 'core-rules/#starting-combat',
 	},
 	Speed: {
 		desc: 'Spaces moved per Move action. Default is 6.',
-		url: RULES + '#speed--range',
+		url: BASE + 'core-rules/#speed--range',
 	},
 };
 
 export const cardDocs: Record<string, FieldDoc> = {
 	Save: {
 		desc: 'Roll 1d20 + stat when the world acts on you. Each class has one +1 and one −1 save bonus.',
-		url: RULES + '#skill-checks--saves',
+		url: BASE + 'core-rules/#skill-checks--saves',
 	},
 	Actions: {
 		desc: 'Up to 3 actions per turn, set by your initiative roll at the start of combat. Resets to 3 at end of turn.',
-		url: RULES + '#heroic-actions',
+		url: BASE + 'core-rules/#heroic-actions',
 	},
 	Wounds: {
 		desc: 'Gained each time you reach 0 HP. Accumulated wounds lead toward death.',
-		url: RULES + '#wounds',
+		url: BASE + 'core-rules/#wounds',
 	},
 };
 
 export const manaDoc: FieldDoc = {
 	desc: "Mana powers your spells. Max mana is based on your class's key stat and level.",
-	url: RULES + '#cast-spell',
+	url: BASE + 'core-rules/#cast-spell',
 };
 
-export const inventoryUrl = RULES + '#7-inventory-slots';
-export const skillsUrl = RULES + '#skills';
+export const inventoryUrl = BASE + 'core-rules/#7-inventory-slots';
+export const skillsUrl = BASE + 'core-rules/#skills';
 
 export const skillDescs: Record<string, string> = {
 	Arcana:
@@ -84,99 +83,195 @@ export const skillDescs: Record<string, string> = {
 		'Your proficiency in staying unseen and moving quietly. Use Stealth to hide, slip past guards, evade detection, and move without drawing attention.',
 };
 
-export type RuleLink = { label: string; anchor: string };
+export type RuleLink = { label: string; path: string };
 export type RuleGroup = { label: string; links: RuleLink[] };
+
+const CR = 'core-rules/';
 
 export const ruleGroups: RuleGroup[] = [
 	{
 		label: 'Basics',
 		links: [
-			{ label: 'How to Be a Good Player', anchor: '#how-to-be-a-good-player' },
-			{ label: 'Stats', anchor: '#stats' },
-			{ label: 'Skills', anchor: '#skills' },
-			{ label: 'Skill Checks & Saves', anchor: '#skill-checks--saves' },
-			{ label: 'Advantage & Disadvantage', anchor: '#advantage--disadvantage' },
-			{ label: 'Size', anchor: '#size' },
+			{ label: 'How to Be a Good Player', path: CR + '#how-to-be-a-good-player' },
+			{ label: 'Stats', path: CR + '#stats' },
+			{ label: 'Skills', path: CR + '#skills' },
+			{ label: 'Skill Checks & Saves', path: CR + '#skill-checks--saves' },
+			{ label: 'Advantage & Disadvantage', path: CR + '#advantage--disadvantage' },
+			{ label: 'Size', path: CR + '#size' },
 		],
 	},
 	{
 		label: 'Character',
 		links: [
-			{ label: 'The Character Sheet', anchor: '#the-character-sheet' },
-			{ label: 'Leveling Up', anchor: '#leveling-up' },
-			{ label: 'Hit Points & Dying', anchor: '#hit-points--dying' },
-			{ label: 'Wounds', anchor: '#wounds' },
-			{ label: 'Temporary HP', anchor: '#temporary-hp' },
-			{ label: 'Hit Dice', anchor: '#hit-dice' },
-			{ label: 'Speed & Range', anchor: '#speed--range' },
-			{ label: 'Common Ancestries', anchor: '#common-ancestries' },
-			{ label: 'Exotic Ancestries', anchor: '#exotic-ancestries' },
-			{ label: 'Backgrounds', anchor: '#backgrounds' },
-			{ label: 'Adventuring Motivation', anchor: '#adventuring-motivation' },
+			{ label: 'The Character Sheet', path: CR + '#the-character-sheet' },
+			{ label: 'Leveling Up', path: CR + '#leveling-up' },
+			{ label: 'Hit Points & Dying', path: CR + '#hit-points--dying' },
+			{ label: 'Wounds', path: CR + '#wounds' },
+			{ label: 'Temporary HP', path: CR + '#temporary-hp' },
+			{ label: 'Hit Dice', path: CR + '#hit-dice' },
+			{ label: 'Speed & Range', path: CR + '#speed--range' },
+			{ label: 'Adventuring Motivation', path: CR + '#adventuring-motivation' },
+		],
+	},
+	{
+		label: 'Classes',
+		links: [
+			{ label: 'Berserker', path: 'classes/berserker/' },
+			{ label: 'The Cheat', path: 'classes/the-cheat/' },
+			{ label: 'Commander', path: 'classes/commander/' },
+			{ label: 'Hunter', path: 'classes/hunter/' },
+			{ label: 'Mage', path: 'classes/mage/' },
+			{ label: 'Oathsworn', path: 'classes/oathsworn/' },
+			{ label: 'Shadowmancer', path: 'classes/shadowmancer/' },
+			{ label: 'Shepherd', path: 'classes/shepherd/' },
+			{ label: 'Songweaver', path: 'classes/songweaver/' },
+			{ label: 'Stormshifter', path: 'classes/stormshifter/' },
+			{ label: 'Zephyr', path: 'classes/zephyr/' },
+		],
+	},
+	{
+		label: 'Ancestries',
+		links: [
+			{ label: 'Human', path: 'ancestries/human/' },
+			{ label: 'Dwarf', path: 'ancestries/dwarf/' },
+			{ label: 'Elf', path: 'ancestries/elf/' },
+			{ label: 'Halfling', path: 'ancestries/halfling/' },
+			{ label: 'Gnome', path: 'ancestries/gnome/' },
+			{ label: 'Bunbun', path: 'ancestries/bunbun/' },
+			{ label: 'Dragonborn', path: 'ancestries/dragonborn/' },
+			{ label: 'Fiendkin', path: 'ancestries/fiendkin/' },
+			{ label: 'Goblin', path: 'ancestries/goblin/' },
+			{ label: 'Kobold', path: 'ancestries/kobold/' },
+			{ label: 'Orc', path: 'ancestries/orc/' },
+			{ label: 'Birdfolk', path: 'ancestries/birdfolk/' },
+			{ label: 'Celestial', path: 'ancestries/celestial/' },
+			{ label: 'Changeling', path: 'ancestries/changeling/' },
+			{ label: 'Crystalborn', path: 'ancestries/crystalborn/' },
+			{ label: 'Dryad/Shroomling', path: 'ancestries/dryad-shroomling/' },
+			{ label: 'Half-Giant', path: 'ancestries/half-giant/' },
+			{ label: 'Minotaur/Beastfolk', path: 'ancestries/minotaur-beastfolk/' },
+			{ label: 'Oozeling/Construct', path: 'ancestries/oozeling-construct/' },
+			{ label: 'Planarbeing', path: 'ancestries/planarbeing/' },
+			{ label: 'Ratfolk', path: 'ancestries/ratfolk/' },
+			{ label: 'Stoatling', path: 'ancestries/stoatling/' },
+			{ label: 'Turtlefolk', path: 'ancestries/turtlefolk/' },
+			{ label: 'Wyrdling', path: 'ancestries/wyrdling/' },
+		],
+	},
+	{
+		label: 'Backgrounds',
+		links: [
+			{ label: 'Back Out of Retirement', path: 'backgrounds/back-out-of-retirement/' },
+			{ label: 'Devoted Protector', path: 'backgrounds/devoted-protector/' },
+			{ label: 'Academy Dropout', path: 'backgrounds/academy-dropout/' },
+			{ label: 'Made a BAD Choice', path: 'backgrounds/made-a-bad-choice/' },
+			{ label: 'Haunted Past', path: 'backgrounds/haunted-past/' },
+			{ label: 'Ear to the Ground', path: 'backgrounds/ear-to-the-ground/' },
+			{ label: "What? I've Been Around", path: 'backgrounds/what-i-ve-been-around/' },
+			{ label: 'Acrobat', path: 'backgrounds/acrobat/' },
+			{ label: 'Wild One', path: 'backgrounds/wild-one/' },
+			{ label: 'Fey Touched', path: 'backgrounds/fey-touched/' },
+			{ label: 'Survivalist', path: 'backgrounds/survivalist/' },
+			{ label: 'Home at Sea', path: 'backgrounds/home-at-sea/' },
+			{ label: 'At Home Underground', path: 'backgrounds/at-home-underground/' },
+			{ label: 'Raised by Goblins', path: 'backgrounds/raised-by-goblins/' },
+			{ label: 'Change It Up!', path: 'backgrounds/change-it-up/' },
+			{ label: 'History Buff', path: 'backgrounds/history-buff/' },
+			{ label: '(Former) Con Artist', path: 'backgrounds/former-con-artist/' },
+			{ label: '(Secretly) Undead', path: 'backgrounds/secretly-undead/' },
+			{ label: 'Taste for the Finer Things', path: 'backgrounds/taste-for-the-finer-things/' },
+			{ label: 'Fearless', path: 'backgrounds/fearless/' },
+			{ label: "So Dumb I'm Smart Sometimes", path: 'backgrounds/so-dumb-i-m-smart-sometimes/' },
+			{ label: 'Wily Underdog', path: 'backgrounds/wily-underdog/' },
+			{ label: 'Bumblewise', path: 'backgrounds/bumblewise/' },
+			{ label: 'Accidental Acrobat', path: 'backgrounds/accidental-acrobat/' },
+			{ label: 'Tradesman/Artisan', path: 'backgrounds/tradesman-artisan/' },
+			{ label: 'Make It Your Own!', path: 'backgrounds/make-it-your-own/' },
+		],
+	},
+	{
+		label: 'Conditions',
+		links: [
+			{ label: 'Blinded', path: 'conditions/blinded/' },
+			{ label: 'Bloodied', path: 'conditions/bloodied/' },
+			{ label: 'Charmed', path: 'conditions/charmed/' },
+			{ label: 'Dazed', path: 'conditions/dazed/' },
+			{ label: 'Dying', path: 'conditions/dying/' },
+			{ label: 'Frightened', path: 'conditions/frightened/' },
+			{ label: 'Grappled/Restrained', path: 'conditions/grappled-restrained/' },
+			{ label: 'Hampered', path: 'conditions/hampered/' },
+			{ label: 'Incapacitated', path: 'conditions/incapacitated/' },
+			{ label: 'Invisible', path: 'conditions/invisible/' },
+			{ label: 'Petrified', path: 'conditions/petrified/' },
+			{ label: 'Poisoned', path: 'conditions/poisoned/' },
+			{ label: 'Prone', path: 'conditions/prone/' },
+			{ label: 'Riding', path: 'conditions/riding/' },
+			{ label: 'Slowed', path: 'conditions/slowed/' },
+			{ label: 'Taunted', path: 'conditions/taunted/' },
+			{ label: 'Wounded', path: 'conditions/wounded/' },
 		],
 	},
 	{
 		label: 'Combat',
 		links: [
-			{ label: 'Starting Combat', anchor: '#starting-combat' },
-			{ label: 'Surprise', anchor: '#surprise' },
-			{ label: 'Turn Order', anchor: '#turn-order' },
-			{ label: 'Turns, Rounds & Encounters', anchor: '#turns-rounds--encounters' },
-			{ label: 'Acting Over Multiple Turns', anchor: '#acting-over-multiple-turns' },
-			{ label: 'Heroic Actions', anchor: '#heroic-actions' },
-			{ label: '— Attack', anchor: '#attack' },
-			{ label: '— Cast Spell', anchor: '#cast-spell' },
-			{ label: '— Move', anchor: '#move' },
-			{ label: '— Assess', anchor: '#assess' },
-			{ label: '— Free Actions', anchor: '#free-actions' },
-			{ label: 'Heroic Reactions', anchor: '#heroic-reactions' },
-			{ label: '— Defend', anchor: '#defend' },
-			{ label: '— Interpose', anchor: '#interpose' },
-			{ label: '— Opportunity Attack', anchor: '#opportunity-attack' },
-			{ label: '— Help', anchor: '#help' },
-			{ label: 'Concentration', anchor: '#concentration' },
-			{ label: 'Cover & Hiding', anchor: '#cover--hiding' },
-			{ label: 'Grappling', anchor: '#grappling' },
-			{ label: 'Conditions', anchor: '#conditions' },
-			{ label: 'Monsters & Armor', anchor: '#monsters--armor' },
-			{ label: 'Minions', anchor: '#minions' },
+			{ label: 'Starting Combat', path: CR + '#starting-combat' },
+			{ label: 'Surprise', path: CR + '#surprise' },
+			{ label: 'Turn Order', path: CR + '#turn-order' },
+			{ label: 'Turns, Rounds & Encounters', path: CR + '#turns-rounds--encounters' },
+			{ label: 'Acting Over Multiple Turns', path: CR + '#acting-over-multiple-turns' },
+			{ label: 'Heroic Actions', path: CR + '#heroic-actions' },
+			{ label: '— Attack', path: CR + '#attack' },
+			{ label: '— Cast Spell', path: CR + '#cast-spell' },
+			{ label: '— Move', path: CR + '#move' },
+			{ label: '— Assess', path: CR + '#assess' },
+			{ label: '— Free Actions', path: CR + '#free-actions' },
+			{ label: 'Heroic Reactions', path: CR + '#heroic-reactions' },
+			{ label: '— Defend', path: CR + '#defend' },
+			{ label: '— Interpose', path: CR + '#interpose' },
+			{ label: '— Opportunity Attack', path: CR + '#opportunity-attack' },
+			{ label: '— Help', path: CR + '#help' },
+			{ label: 'Concentration', path: CR + '#concentration' },
+			{ label: 'Cover & Hiding', path: CR + '#cover--hiding' },
+			{ label: 'Grappling', path: CR + '#grappling' },
+			{ label: 'Monsters & Armor', path: CR + '#monsters--armor' },
+			{ label: 'Minions', path: CR + '#minions' },
 		],
 	},
 	{
 		label: 'Rest & Downtime',
 		links: [
-			{ label: 'Field Rests', anchor: '#field-rests' },
-			{ label: '— Catch Breath', anchor: '#catch-breath' },
-			{ label: '— Make Camp', anchor: '#make-camp' },
-			{ label: 'Safe Rest', anchor: '#safe-rest' },
-			{ label: 'Downtime', anchor: '#downtime' },
+			{ label: 'Field Rests', path: CR + '#field-rests' },
+			{ label: '— Catch Breath', path: CR + '#catch-breath' },
+			{ label: '— Make Camp', path: CR + '#make-camp' },
+			{ label: 'Safe Rest', path: CR + '#safe-rest' },
+			{ label: 'Downtime', path: CR + '#downtime' },
 		],
 	},
 	{
 		label: 'Equipment',
 		links: [
-			{ label: 'Armor', anchor: '#armor' },
-			{ label: 'Weapon Properties', anchor: '#weapon-properties' },
-			{ label: 'Melee Weapons', anchor: '#melee-weapons' },
-			{ label: 'Ranged Weapons', anchor: '#ranged-weapons' },
-			{ label: 'Key Equipment', anchor: '#key-equipment' },
-			{ label: 'Misc Adventuring Equipment', anchor: '#misc-adventuring-equipment' },
-			{ label: 'Magical Items', anchor: '#magical-items' },
-			{ label: 'Spell Scrolls & Wands', anchor: '#spell-scrolls--wands' },
+			{ label: 'Armor', path: CR + '#armor' },
+			{ label: 'Weapon Properties', path: CR + '#weapon-properties' },
+			{ label: 'Melee Weapons', path: CR + '#melee-weapons' },
+			{ label: 'Ranged Weapons', path: CR + '#ranged-weapons' },
+			{ label: 'Key Equipment', path: CR + '#key-equipment' },
+			{ label: 'Misc Adventuring Equipment', path: CR + '#misc-adventuring-equipment' },
+			{ label: 'Magical Items', path: CR + '#magical-items' },
+			{ label: 'Spell Scrolls & Wands', path: CR + '#spell-scrolls--wands' },
 		],
 	},
 	{
 		label: 'Magic',
 		links: [
-			{ label: 'Cast Spell', anchor: '#cast-spell' },
-			{ label: 'Upcasting Spells', anchor: '#upcasting-spells' },
-			{ label: 'Fire Spells', anchor: '#fire-spells' },
-			{ label: 'Ice Spells', anchor: '#ice-spells' },
-			{ label: 'Lightning Spells', anchor: '#lightning-spells' },
-			{ label: 'Wind Spells', anchor: '#wind-spells' },
-			{ label: 'Radiant Spells', anchor: '#radiant-spells' },
-			{ label: 'Necrotic Spells', anchor: '#necrotic-spells' },
-			{ label: 'Utility Spells', anchor: '#utility-spells' },
+			{ label: 'Cast Spell', path: CR + '#cast-spell' },
+			{ label: 'Upcasting Spells', path: CR + '#upcasting-spells' },
+			{ label: 'Fire Spells', path: CR + '#fire-spells' },
+			{ label: 'Ice Spells', path: CR + '#ice-spells' },
+			{ label: 'Lightning Spells', path: CR + '#lightning-spells' },
+			{ label: 'Wind Spells', path: CR + '#wind-spells' },
+			{ label: 'Radiant Spells', path: CR + '#radiant-spells' },
+			{ label: 'Necrotic Spells', path: CR + '#necrotic-spells' },
+			{ label: 'Utility Spells', path: CR + '#utility-spells' },
 		],
 	},
 ];

@@ -12,6 +12,7 @@
 
 	import {
 		allClasses,
+		allSubclasses,
 		stats,
 		saves,
 		ancestries,
@@ -42,6 +43,7 @@
 	let currentClass: NimbleClass | undefined = $derived(
 		allClasses.find((c) => c.name === character.charClass)
 	);
+	let currentSubclasses: string[] = $derived(allSubclasses[character.charClass] ?? []);
 
 	function setClass() {
 		if (currentClass) {
@@ -51,6 +53,7 @@
 				character.maxHp = currentClass.startHp;
 			}
 		}
+		character.subclass = '';
 		onchange();
 	}
 
@@ -231,6 +234,21 @@
 					bind:value={character.level}
 				/>
 			</div>
+			{#if character.level >= 3 && currentSubclasses.length > 0}
+				<div class="col-span-3">
+					<Label for="subclass" class="sr-only">Subclass</Label>
+					<Select.Root type="single" bind:value={character.subclass} onValueChange={onchange}>
+						<Select.Trigger class="w-full">
+							{character.subclass || `Subclass`}
+						</Select.Trigger>
+						<Select.Content>
+							{#each currentSubclasses as sc}
+								<Select.Item value={sc}>{sc}</Select.Item>
+							{/each}
+						</Select.Content>
+					</Select.Root>
+				</div>
+			{/if}
 		</Card.Content>
 	</Card.Root>
 	<Card.Root>

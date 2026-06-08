@@ -327,7 +327,7 @@
 					onfocus={autoSel}
 					bind:value={character.armor}
 				/>
-				<RulePopover doc={statDocs.Armor} class="text-sm font-medium leading-none">Armor</RulePopover>
+				<RulePopover doc={statDocs.Armor}><Label for="sstat-armor">Armor</Label></RulePopover>
 			</div>
 			<div class="flex flex-col items-center gap-2">
 				<Input
@@ -339,7 +339,7 @@
 					bind:value={character.hp}
 				/>
 				<div class="flex items-center gap-3">
-					<RulePopover doc={statDocs.HP} class="text-sm font-medium leading-none">HP</RulePopover>
+					<RulePopover doc={statDocs.HP}><Label for="sstat-hp" title="Hit Points">HP</Label></RulePopover>
 					<button
 						type="button"
 						disabled={!character.hitdie}
@@ -358,7 +358,7 @@
 					bind:value={character.hd}
 				/>
 				<div class="flex items-center gap-3">
-					<RulePopover doc={statDocs.HD} class="text-sm font-medium leading-none">HD</RulePopover>
+					<RulePopover doc={statDocs.HD}><Label for="sstat-hd" title="Hit Dice">HD</Label></RulePopover>
 					<button
 						type="button"
 						disabled={!character.hitdie}
@@ -377,7 +377,7 @@
 					bind:value={character.initiative}
 				/>
 				<div class="flex items-center gap-3">
-					<RulePopover doc={statDocs.Init} class="text-sm font-medium leading-none">Init</RulePopover>
+					<RulePopover doc={statDocs.Init}><Label for="sstat-init" title="Initiative">Init</Label></RulePopover>
 					<button type="button" onclick={rollInitiative}><Icons.Dice class="size-4" /></button>
 				</div>
 			</div>
@@ -424,14 +424,14 @@
 					onfocus={autoSel}
 					bind:value={character.speed}
 				/>
-				<RulePopover doc={statDocs.Speed} class="text-sm font-medium leading-none">Speed</RulePopover>
+				<RulePopover doc={statDocs.Speed}><Label for="sstat-speed">Speed</Label></RulePopover>
 			</div>
 		</Card.Content>
 	</Card.Root>
 
 	<Card.Root>
 		<Card.Content class="flex items-center gap-2">
-			<RulePopover doc={cardDocs.Save} class="grow text-left text-lg font-bold">Save</RulePopover>
+			<RulePopover doc={cardDocs.Save} class="grow text-left"><h4 class="text-lg font-bold">Save</h4></RulePopover>
 			<div class="flex flex-wrap items-center justify-end gap-2">
 				{#each saves as save}
 					<Button
@@ -452,7 +452,7 @@
 
 	<Card.Root>
 		<Card.Content class="flex items-center gap-4">
-			<RulePopover doc={cardDocs.Actions} class="grow text-left text-lg font-bold">Actions</RulePopover>
+			<RulePopover doc={cardDocs.Actions} class="grow text-left"><h4 class="text-lg font-bold">Actions</h4></RulePopover>
 			<button
 				onclick={() => {
 					actions = 0;
@@ -477,7 +477,7 @@
 
 	<Card.Root>
 		<Card.Content class="flex items-center gap-3">
-			<RulePopover doc={cardDocs.Wounds} class="grow text-left text-lg font-bold">Wounds</RulePopover>
+			<RulePopover doc={cardDocs.Wounds} class="grow text-left"><h4 class="text-lg font-bold">Wounds</h4></RulePopover>
 			<button
 				type="button"
 				onclick={() => {

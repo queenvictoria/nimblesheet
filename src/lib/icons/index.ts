@@ -83,15 +83,12 @@ export const Icons = {
 	Disadvantage,
 	Multi,
 	Loader,
-<<<<<<< HEAD
 	Lock,
 	Unlock,
 	History,
 	DriveBackup,
 	DriveImport,
-=======
 	BookOpenText,
->>>>>>> feature/docs
 	Fire,
 	Ice,
 	Wind,

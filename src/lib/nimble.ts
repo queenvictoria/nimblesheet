@@ -169,7 +169,7 @@ export const allSubclasses: Record<string, string[]> = {
 	'Hunter': ['Beastmaster', 'Keeper of the Balance', 'Keeper of the Pack', 'Keeper of the Shadowpath', 'Keeper of the Wild Heart'],
 	'Mage': ['Invoker of Chaos', 'Invoker of Control', 'Invoker of Majesty', 'Invoker of Perfection'],
 	'Oathsworn': ['Oath of Purification', 'Oath of Refuge', 'Oath of Valor', 'Oath of Vengeance', 'Oathbreaker'],
-	'Shadowmancer': ['Pact of the Abyssal Depths', 'Pact of the Celestial', 'Pact of the Ego', 'Pact of the Red Dragon', 'Reaver'],
+	'Shadowmancer': ['Pact of the Abyssal Depths', 'Pact of the Celestial', 'Pact of the Ego', 'Pact of the High Celestial', 'Pact of the Red Dragon', 'Reaver'],
 	'Shepherd': ['Luminary of Darkness', 'Luminary of Malice', 'Luminary of Mercy', 'Luminary of Tidings'],
 	'Songweaver': ['Herald of Courage', 'Herald of Doom', 'Herald of Legends', 'Herald of Snark'],
 	'Stormshifter': ['Circle of Blaze & Bloom', 'Circle of Fang & Claw', 'Circle of Sky & Storm', 'Circle of Sun & Moon'],

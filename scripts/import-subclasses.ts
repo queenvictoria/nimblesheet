@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 // Run with: npm run import-subclasses
-// Reads subclass names from docs and prints the allSubclasses export for nimble.ts.
-import { readdirSync, existsSync, readFileSync } from 'node:fs';
+// Reads subclass names from docs and rewrites the allSubclasses export in nimble.ts.
+import { readdirSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -52,4 +52,19 @@ const entries = Object.entries(result)
 	.map(([cls, subs]) => `\t'${cls}': [${subs.map((s) => `'${s}'`).join(', ')}]`)
 	.join(',\n');
 
-console.log(`export const allSubclasses: Record<string, string[]> = {\n${entries},\n};`);
+const block = `export const allSubclasses: Record<string, string[]> = {\n${entries},\n};`;
+
+const nimblePath = join(PROJECT_ROOT, 'src/lib/nimble.ts');
+const source = readFileSync(nimblePath, 'utf8');
+const updated = source.replace(
+	/export const allSubclasses: Record<string, string\[\]> = \{[\s\S]*?\};/,
+	block,
+);
+
+if (updated === source) {
+	console.error('Could not find allSubclasses block in nimble.ts — nothing written.');
+	process.exit(1);
+}
+
+writeFileSync(nimblePath, updated, 'utf8');
+console.log(`Updated allSubclasses in src/lib/nimble.ts (${Object.keys(result).length} classes).`);

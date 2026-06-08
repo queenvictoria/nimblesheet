@@ -604,7 +604,7 @@
 				So <code>1d4!v+[DEX]</code> rolls a d4 with exploding crits and vicious damage, adding your Dexterity
 				modifier.
 			</p>
-			<a class="mt-2 block text-muted-foreground" href={inventoryUrl} target="_blank" rel="noopener noreferrer"><Icons.BookOpenText class="size-4" /></a>
+			<a class="mt-2 block text-muted-foreground" href={inventoryUrl} target="nimble-docs"><Icons.BookOpenText class="size-4" /></a>
 		{/snippet}
 		{#snippet headerExtra()}
 			<div class:text-destructive={invCount > +character.stats.STR + 10}>

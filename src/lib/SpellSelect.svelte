@@ -233,8 +233,7 @@
 										<a
 											class="mt-2 block text-xs text-muted-foreground underline"
 											href={spellUrl(spell.name)}
-											target="_blank"
-											rel="noopener noreferrer"
+											target="nimble-docs"
 										><Icons.BookOpenText class="size-4" /></a>
 									</Popover.Content>
 								</Popover.Root>

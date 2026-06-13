@@ -163,18 +163,18 @@ export const ancestries: Ancestry[] = [
 ];
 
 export const allSubclasses: Record<string, string[]> = {
-	'Berserker': ['Path of the Exile', 'Path of the Mountainheart', 'Path of the Red Mist', 'Path of the Titans'],
-	'Commander': ['Champion of the Arena', 'Champion of the Battlefield', 'Champion of the Bulwark', 'Champion of the Vanguard', 'Spellblade'],
+	'Berserker': ['Muscle Mage', 'Path of the Burning Rage', 'Path of the Mountainheart', 'Path of the Red Mist', 'Path of the Titan's Grip'],
+	'Commander': ['Champion of the Bulwark', 'Champion of the Phalanx', 'Champion of the Siege-Breaker', 'Champion of the Vanguard', 'Spellblade'],
 	'Hexbinder': ['Coven of The Hex', 'Coven of The Hunt'],
-	'Hunter': ['Beastmaster', 'Keeper of the Balance', 'Keeper of the Pack', 'Keeper of the Shadowpath', 'Keeper of the Wild Heart'],
-	'Mage': ['Invoker of Chaos', 'Invoker of Control', 'Invoker of Majesty', 'Invoker of Perfection'],
-	'Oathsworn': ['Oath of Purification', 'Oath of Refuge', 'Oath of Valor', 'Oath of Vengeance', 'Oathbreaker'],
-	'Shadowmancer': ['Pact of the Abyssal Depths', 'Pact of the Celestial', 'Pact of the Ego', 'Pact of the High Celestial', 'Pact of the Red Dragon', 'Reaver'],
-	'Shepherd': ['Luminary of Darkness', 'Luminary of Malice', 'Luminary of Mercy', 'Luminary of Tidings'],
-	'Songweaver': ['Herald of Courage', 'Herald of Doom', 'Herald of Legends', 'Herald of Snark'],
-	'Stormshifter': ['Circle of Blaze & Bloom', 'Circle of Fang & Claw', 'Circle of Sky & Storm', 'Circle of Sun & Moon'],
-	'The Cheat': ['Tools of the Scoundrel', 'Tools of the Silent Blade', 'Tools of the Spider', 'Tools of the Trickshot'],
-	'Zephyr': ['Way of Flame', 'Way of Pain', 'Way of Shadows', 'Way of the Dancer'],
+	'Hunter': ['Beastmaster', 'Keeper of Traps', 'Keeper of the Shadowpath', 'Keeper of the Wild Heart'],
+	'Mage': ['Invoker of Chaos', 'Invoker of Control', 'Invoker of Flame', 'Invoker of Frost', 'Invoker of Surges', 'Invoker of Wards'],
+	'Oathsworn': ['Oath of Refuge', 'Oath of Roaring Thunder', 'Oath of Vengeance', 'Oathbreaker'],
+	'Shadowmancer': ['Pact of the Abyssal Depths', 'Pact of the Endless Swarm', 'Pact of the High Celestial', 'Pact of the Red Dragon', 'Pact of the Void', 'Reaver'],
+	'Shepherd': ['Luminary of Malice', 'Luminary of Mercy', 'Luminary of Protection', 'Luminary of the Forge'],
+	'Songweaver': ['Herald of Courage', 'Herald of Singing Steel', 'Herald of Snark', 'Herald of Torment'],
+	'Stormshifter': ['Circle of Cinder & Ash', 'Circle of Fang & Claw', 'Circle of Sky & Storm', 'Circle of Venom & Web'],
+	'The Cheat': ['The Honorseeker', 'Tools of the Gambler', 'Tools of the Scoundrel', 'Tools of the Serpent', 'Tools of the Silent Blade'],
+	'Zephyr': ['Way of Flame', 'Way of Hurricanes', 'Way of Iron', 'Way of Pain'],
 };
 
 export const meleeWeapons: Inventory[] = [

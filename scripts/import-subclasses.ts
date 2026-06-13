@@ -41,6 +41,10 @@ for (const dirName of classDirs) {
 	if (!existsSync(subclassDir)) continue;
 	const subclasses = readdirSync(subclassDir)
 		.filter((f) => f.endsWith('.md'))
+		.filter((f) => {
+			const content = readFileSync(join(subclassDir, f), 'utf8');
+			return !/^\*\(by .+\)\*\s*$/m.test(content);
+		})
 		.map((f) => f.replace(/\.md$/, ''))
 		.sort();
 	const className = DIR_NAME_OVERRIDES[dirName] ?? dirName;

@@ -41,14 +41,26 @@ The subclass dropdown already reads `sheetCtx.locked` and will become non-intera
 
 ### Integrating `feature/docs` (Nimblenomicon links)
 
-**1. `src/lib/CharacterSheet.svelte`** — replace the inline slug expression in the subclass doc link with the helper from `nimble-docs`:
+**1. `src/lib/CharacterSheet.svelte`** — add a doc link to the subclass section. Place it **outside** the `pointer-events-none` wrapper so it remains accessible when locked, and use `Icons.BookOpenText` for consistency with other doc links:
 
 ```svelte
-<!-- Before (inline slug): -->
-href="https://nimblenomicon.pages.dev/classes/{character.charClass.trim()...}/"
-
-<!-- After (import classUrl from nimble-docs and use it): -->
-href={classUrl(character.charClass)}
+{#if character.level >= 3 && currentSubclasses.length > 0}
+  <div class="col-span-3 flex items-center gap-2">
+    <div class:pointer-events-none={sheetCtx.locked} class="grow">
+      <Label for="subclass" class="sr-only">Subclass</Label>
+      <Select.Root ...>...</Select.Root>
+    </div>
+    <a
+      href={classUrl(character.charClass)}
+      target="nimble-docs"
+      rel="noopener noreferrer"
+      class="text-muted-foreground hover:text-foreground shrink-0"
+      title="View class reference"
+    >
+      <Icons.BookOpenText class="size-4" />
+    </a>
+  </div>
+{/if}
 ```
 
 **2. `src/lib/ClassAbilities.svelte`** — replace `classSlugUrl` with the shared helper:

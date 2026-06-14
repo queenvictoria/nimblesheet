@@ -17,6 +17,7 @@ import CirclePlus from '@lucide/svelte/icons/circle-plus';
 import CircleMinus from '@lucide/svelte/icons/circle-minus';
 import Dice from '@lucide/svelte/icons/dices';
 import Question from '@lucide/svelte/icons/circle-help';
+import BookOpenText from '@lucide/svelte/icons/book-open-text';
 import Add from '@lucide/svelte/icons/plus';
 import Pencil from '@lucide/svelte/icons/pencil';
 import Check from '@lucide/svelte/icons/check';
@@ -68,6 +69,7 @@ export const Icons = {
 	CircleMinus,
 	Dice,
 	Question,
+	BookOpenText,
 	Add,
 	Pencil,
 	Check,

@@ -363,18 +363,29 @@
 				/>
 			</div>
 			{#if character.level >= 3 && currentSubclasses.length > 0}
-				<div class="col-span-3" class:pointer-events-none={sheetCtx.locked}>
-					<Label for="subclass" class="sr-only">Subclass</Label>
-					<Select.Root type="single" bind:value={character.subclass} onValueChange={onchange}>
-						<Select.Trigger class="w-full">
-							{character.subclass || `Subclass`}
-						</Select.Trigger>
-						<Select.Content>
-							{#each currentSubclasses as sc}
-								<Select.Item value={sc}>{sc}</Select.Item>
-							{/each}
-						</Select.Content>
-					</Select.Root>
+				<div class="col-span-3 flex items-center gap-2">
+					<div class="grow" class:pointer-events-none={sheetCtx.locked}>
+						<Label for="subclass" class="sr-only">Subclass</Label>
+						<Select.Root type="single" bind:value={character.subclass} onValueChange={onchange}>
+							<Select.Trigger class="w-full">
+								{character.subclass || `Subclass`}
+							</Select.Trigger>
+							<Select.Content>
+								{#each currentSubclasses as sc}
+									<Select.Item value={sc}>{sc}</Select.Item>
+								{/each}
+							</Select.Content>
+						</Select.Root>
+					</div>
+					<a
+						href="https://nimblenomicon.pages.dev/classes/{character.charClass.trim().replace(/'/g, ' ').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}/"
+						target="nimble-docs"
+						rel="noopener noreferrer"
+						class="text-muted-foreground hover:text-foreground shrink-0"
+						title="View class reference"
+					>
+						<Icons.BookOpenText class="size-4" />
+					</a>
 				</div>
 			{/if}
 		</Card.Content>

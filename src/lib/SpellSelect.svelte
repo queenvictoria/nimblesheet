@@ -136,9 +136,10 @@
 	let maxMana = $derived(getMaxMana(manaRecipe[charClass]));
 </script>
 
-<Card.Root>
-	<Card.Header>
-		<div class="flex items-center gap-2">
+{#if !locked || available.length > 0}
+	<Card.Root>
+		<Card.Header>
+			<div class="flex items-center gap-2">
 			<Card.Title class="flex grow flex-row items-center gap-2 text-lg">
 				<span>Spells</span>
 
@@ -263,3 +264,4 @@
 		{/each}
 	</Card.Content>
 </Card.Root>
+{/if}

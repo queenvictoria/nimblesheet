@@ -881,6 +881,8 @@
 	<ClassAbilities
 		charClass={character.charClass}
 		level={character.level}
+		subclass={character.subclass}
+		locked={sheetCtx.locked}
 		bind:selectedAbilities={character.selectedAbilities}
 		{onchange}
 	/>

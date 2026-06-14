@@ -37,6 +37,7 @@
 	import { owlbear } from './owlbear.svelte';
 	import Note from './Note.svelte';
 	import { activityLog } from './activity-log.svelte';
+	import { setSheetContext } from './sheet-context';
 
 	type Props = {
 		character: NimbleCharacter;
@@ -161,6 +162,10 @@
 		}
 		clearTimeout(inactivityTimer);
 	});
+
+	const sheetCtx = $state({ locked: false });
+	$effect(() => { sheetCtx.locked = locked; });
+	setSheetContext(sheetCtx);
 
 	async function rollInitiative() {
 		const result = await onroll(`d20+[INIT]`, `Initiative`);
@@ -358,7 +363,7 @@
 				/>
 			</div>
 			{#if character.level >= 3 && currentSubclasses.length > 0}
-				<div class="col-span-3">
+				<div class="col-span-3 flex items-center gap-2" class:pointer-events-none={sheetCtx.locked}>
 					<Label for="subclass" class="sr-only">Subclass</Label>
 					<Select.Root type="single" bind:value={character.subclass} onValueChange={onchange}>
 						<Select.Trigger class="w-full">
@@ -370,6 +375,16 @@
 							{/each}
 						</Select.Content>
 					</Select.Root>
+					<!-- Doc link — when feature/docs merges, replace href with classUrl(character.charClass) from nimble-docs -->
+					<a
+						href="https://nimblenomicon.pages.dev/classes/{character.charClass.trim().replace(/'/g, ' ').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}/"
+						target="nimble-docs"
+						rel="noopener noreferrer"
+						class="text-muted-foreground hover:text-foreground shrink-0"
+						title="View class reference"
+					>
+						<Icons.Question class="size-4" />
+					</a>
 				</div>
 			{/if}
 		</Card.Content>

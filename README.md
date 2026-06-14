@@ -4,6 +4,69 @@ A character sheet / lightweight encounter manager for [Nimble 2](https://nimbler
 
 Also designed to be used as an [Owlbear Rodeo](https://owlbear.rodeo) extension.
 
+## Feature integration guide
+
+### Integrating `feature/non-editable` (locked state)
+
+The sheet context system is in place. When the locked feature merges to `main`, two edits wire it up:
+
+**1. `src/lib/CharacterSheet.svelte`** — replace the placeholder in the sheet context with the real locked state:
+
+```ts
+// Before (placeholder):
+const sheetCtx = $state({ locked: false });
+setSheetContext(sheetCtx);
+
+// After (connect to locked feature's reactive state):
+// locked is already declared by feature/non-editable as: let locked = $state(true);
+$effect(() => { sheetCtx.locked = locked; });
+```
+
+**2. `src/lib/ClassAbilities.svelte`** — pass locked from context instead of as a prop. In `CharacterSheet.svelte`, add `locked={sheetCtx.locked}` to the `<ClassAbilities>` call (once `feature/class-abilities` is also merged):
+
+```svelte
+<ClassAbilities
+  charClass={character.charClass}
+  level={character.level}
+  subclass={character.subclass}
+  locked={sheetCtx.locked}
+  bind:selectedAbilities={character.selectedAbilities}
+  {onchange}
+/>
+```
+
+The subclass dropdown already reads `sheetCtx.locked` and will become non-interactive automatically.
+
+---
+
+### Integrating `feature/docs` (Nimblenomicon links)
+
+**1. `src/lib/CharacterSheet.svelte`** — replace the inline slug expression in the subclass doc link with the helper from `nimble-docs`:
+
+```svelte
+<!-- Before (inline slug): -->
+href="https://nimblenomicon.pages.dev/classes/{character.charClass.trim()...}/"
+
+<!-- After (import classUrl from nimble-docs and use it): -->
+href={classUrl(character.charClass)}
+```
+
+**2. `src/lib/ClassAbilities.svelte`** — replace `classSlugUrl` with the shared helper:
+
+```ts
+// Remove the local classSlugUrl function and replace the import:
+import { classUrl } from './nimble-docs';
+
+// Replace:
+let docUrl = $derived(classSlugUrl(charClass));
+// With:
+let docUrl = $derived(classUrl(charClass));
+```
+
+**3. `src/lib/icons/index.ts`** — `BookOpenText` is already added by `feature/class-abilities`. The docs feature may also add it; if so, remove the duplicate.
+
+---
+
 ## Roadmap
 
 ### Subclass rules support

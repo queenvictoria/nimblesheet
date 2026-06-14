@@ -34,6 +34,7 @@
 	import { rollDice } from './dice/integration';
 	import { owlbear } from './owlbear.svelte';
 	import Note from './Note.svelte';
+	import { setSheetContext } from './sheet-context';
 
 	type Props = {
 		character: NimbleCharacter;
@@ -113,6 +114,11 @@
 
 	let isSharedHere = $derived(character.shared === `owlbear::${owlbear.room}`);
 	let actions = $state(0);
+
+	// Sheet context — consumed by child components to read cross-cutting state.
+	// When feature/non-editable merges: replace `false` with the reactive `locked` variable.
+	const sheetCtx = $state({ locked: false });
+	setSheetContext(sheetCtx);
 
 	async function rollInitiative() {
 		const result = await onroll(`d20+[INIT]`, `Initiative`);
@@ -235,7 +241,7 @@
 				/>
 			</div>
 			{#if character.level >= 3 && currentSubclasses.length > 0}
-				<div class="col-span-3">
+				<div class="col-span-3 flex items-center gap-2" class:pointer-events-none={sheetCtx.locked}>
 					<Label for="subclass" class="sr-only">Subclass</Label>
 					<Select.Root type="single" bind:value={character.subclass} onValueChange={onchange}>
 						<Select.Trigger class="w-full">
@@ -247,6 +253,16 @@
 							{/each}
 						</Select.Content>
 					</Select.Root>
+					<!-- Doc link — when feature/docs merges, replace href with classUrl(character.charClass) from nimble-docs -->
+					<a
+						href="https://nimblenomicon.pages.dev/classes/{character.charClass.trim().replace(/'/g, ' ').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}/"
+						target="nimble-docs"
+						rel="noopener noreferrer"
+						class="text-muted-foreground hover:text-foreground shrink-0"
+						title="View class reference"
+					>
+						<Icons.Question class="size-4" />
+					</a>
 				</div>
 			{/if}
 		</Card.Content>

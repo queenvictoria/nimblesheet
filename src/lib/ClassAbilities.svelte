@@ -155,18 +155,40 @@
 				{@const allowed = allowedPicks(list.name)}
 				{@const picked = pickedCount(list.name, list.items)}
 				{#if allowed > 0}
-					<Collapsible.Root>
-						<Collapsible.Trigger class="group flex w-full items-center gap-4">
-							<div class="grow text-left text-lg">{list.name}</div>
-							<span class="text-muted-foreground text-sm">{picked}/{allowed}</span>
-							<Icons.ChevronRight
-								class="size-5 transition-transform group-data-[state=open]:rotate-90"
-							/>
-						</Collapsible.Trigger>
-						<Collapsible.Content class="py-2 pl-4">
-							{#each list.items as item}
-								<div class="flex items-start gap-2 py-1">
-									<div class={locked ? 'pointer-events-none' : ''}>
+					{#if locked}
+						{@const chosenItems = list.items.filter((i) => selectedAbilities[i.name])}
+						{#if chosenItems.length}
+							{#each chosenItems as item}
+								<div class="flex items-center gap-2 py-0.5">
+									<Popover.Root>
+										<Popover.Trigger class="text-left font-medium hover:underline">
+											{item.name}
+										</Popover.Trigger>
+										<Popover.Content>
+											<p class="text-sm">{item.desc}</p>
+											<a
+												class="mt-2 block text-xs text-muted-foreground underline"
+												href={classPageUrl}
+												target="nimble-docs"
+												rel="noopener noreferrer"
+											><Icons.BookOpenText class="size-4" /></a>
+										</Popover.Content>
+									</Popover.Root>
+								</div>
+							{/each}
+						{/if}
+					{:else}
+						<Collapsible.Root>
+							<Collapsible.Trigger class="group flex w-full items-center gap-4">
+								<div class="grow text-left text-lg">{list.name}</div>
+								<span class="text-muted-foreground text-sm">{picked}/{allowed}</span>
+								<Icons.ChevronRight
+									class="size-5 transition-transform group-data-[state=open]:rotate-90"
+								/>
+							</Collapsible.Trigger>
+							<Collapsible.Content class="py-2 pl-4">
+								{#each list.items as item}
+									<div class="flex items-start gap-2 py-1">
 										<Checkbox
 											checked={selectedAbilities[item.name] ?? false}
 											onCheckedChange={(x) => {
@@ -174,29 +196,29 @@
 												onchange();
 											}}
 										/>
+										<div class="flex grow flex-col">
+											<Popover.Root>
+												<Popover.Trigger
+													class="text-left font-medium hover:underline {!selectedAbilities[item.name] ? 'text-muted-foreground' : ''}"
+												>
+													{item.name}
+												</Popover.Trigger>
+												<Popover.Content>
+													<p class="text-sm">{item.desc}</p>
+													<a
+														class="mt-2 block text-xs text-muted-foreground underline"
+														href={classPageUrl}
+														target="nimble-docs"
+														rel="noopener noreferrer"
+													><Icons.BookOpenText class="size-4" /></a>
+												</Popover.Content>
+											</Popover.Root>
+										</div>
 									</div>
-									<div class="flex grow flex-col">
-										<Popover.Root>
-											<Popover.Trigger
-												class="text-left font-medium hover:underline {!selectedAbilities[item.name] ? 'text-muted-foreground' : ''}"
-											>
-												{item.name}
-											</Popover.Trigger>
-											<Popover.Content>
-												<p class="text-sm">{item.desc}</p>
-												<a
-													class="mt-2 block text-xs text-muted-foreground underline"
-													href={classPageUrl}
-													target="nimble-docs"
-													rel="noopener noreferrer"
-												><Icons.BookOpenText class="size-4" /></a>
-											</Popover.Content>
-										</Popover.Root>
-									</div>
-								</div>
-							{/each}
-						</Collapsible.Content>
-					</Collapsible.Root>
+								{/each}
+							</Collapsible.Content>
+						</Collapsible.Root>
+					{/if}
 				{/if}
 			{/each}
 

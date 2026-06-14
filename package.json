@@ -11,7 +11,8 @@
 		"format": "prettier --write .",
 		"lint": "prettier --check .",
 		"deploy": "vite build && vercel --prod",
-		"import-subclasses": "tsx scripts/import-subclasses.ts"
+		"import-subclasses": "tsx scripts/import-subclasses.ts",
+		"import-class-abilities": "tsx scripts/import-class-abilities.ts"
 	},
 	"devDependencies": {
 		"@internationalized/date": "^3.8.2",

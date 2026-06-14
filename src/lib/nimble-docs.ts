@@ -10,6 +10,16 @@ export function spellUrl(name: string): string {
 	return `${BASE}spells/${slug}/`;
 }
 
+export function classUrl(className: string): string {
+	const slug = className
+		.trim()
+		.replace(/'/g, ' ')
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-|-$/g, '');
+	return `${BASE}classes/${slug}/`;
+}
+
 export function openRule(path: string): void {
 	window.open(BASE + path, 'nimble-docs');
 }
